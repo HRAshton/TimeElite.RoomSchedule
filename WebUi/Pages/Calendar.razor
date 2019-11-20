@@ -1,0 +1,136 @@
+﻿@page "/"
+@using Microsoft.Extensions.Caching.Memory
+@using WebUi.Data
+@using WebUi.Models.Calendar
+@using WebUi.Models.Feed
+
+@inject IMemoryCache MemoryCache
+@inject CalendarService CalendarService
+@inject FeedService FeedService
+
+<div class="left-side">
+    <h1>Календарь Этоната</h1>
+
+    <hr/>
+
+    <div id="legend">
+        <h2>Легенда</h2>
+        <ul>
+            @foreach (var legendItem in Model.CalendarModel.Legend)
+            {
+                <li>
+                    <div style="border-color: @legendItem.ColorHex"></div> @legendItem.Name
+                </li>
+            }
+        </ul>
+    </div>
+
+    @*<div id="feed">
+        @foreach (var t in Model.Posts)
+        {
+            <div class="post">
+                @(t.Text.Length <= 297 ? t.Text : new string(t.Text.Take(297).ToArray()) + "…")
+                <img src="@t.ImageUrl" />
+                <span>@t.Likes</span>
+            </div>
+        }
+    </div>*@
+
+    <div id="links">
+        <h3>Ссылки на календари iCal:</h3>
+        <ul>
+            @foreach (var legendItem in Model.CalendarModel.Legend.Take(2))
+            {
+                <li style="color: @legendItem.ColorHex">
+                    @legendItem.iCalUrl
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="right-side">
+    <table>
+        <thead>
+        <tr>
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @for (var row = 0; row < 5; row++)
+        {
+            <tr>
+                @for (var col = 0; col < 7; col++)
+                {
+                    <td>
+                        <span class="@(Model.CalendarModel.Matrix[row, col].Date.Date == DateTime.Today ? "today" : "")">
+                            @Model.CalendarModel.Matrix[row, col].Date.Day
+                        </span>
+
+                        @foreach (var evt in Model.CalendarModel.Matrix[row, col].Events)
+                        {
+                            <div style="background-color: @evt.ColorHex" class="event @(evt.IsOutdated ? "outdated" : "")">
+                                <div>
+                                    @if (evt.IsBirthday)
+                                    {
+                                        <i class="fas fa-gift"></i>
+                                    }
+
+                                    @evt.Summary
+                                </div>
+                                <div>@evt.Place</div>
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+
+    </table>
+</div>
+
+@code {
+    CalendarViewModel Model;
+
+    protected override Task OnInitializedAsync()
+    {
+        var viewModel = MemoryCache.GetOrCreate(nameof(CalendarViewModel), entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(25);
+            var result = GetCalendarViewModel();
+
+            return result;
+        });
+
+        return Task.FromResult(Model = viewModel);
+    }
+
+    private CalendarViewModel GetCalendarViewModel()
+    {
+        CalendarModel calendar = null;
+        IEnumerable<PostModel> posts = null;
+
+        var task1 = Task.Run(() => { calendar = CalendarService.GetSchedule(); });
+        //var task2 = Task.Run(() => { posts = FeedService.GetPosts(); });
+
+        var task = Task
+            .WhenAll(task1)
+            .ContinueWith(_ => new CalendarViewModel
+            {
+                CalendarModel = calendar,
+                Posts = posts
+            });
+
+        var result = task.Result;
+
+        return result;
+    }
+}

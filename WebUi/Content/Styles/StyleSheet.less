@@ -1,0 +1,140 @@
+﻿body, body * {
+    font-family: "Roboto";
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    display: inline-flex;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .left-side {
+        width: 15vw;
+        height: 100vh;
+        position: relative;
+
+        & > h1 {
+            font-family: 'Product Sans', Arial, sans-serif;
+            font-size: 26px;
+            opacity: .54;
+            text-align: center;
+        }
+
+        h2, h3 {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: .25px;
+            line-height: 20px;
+            color: #3c4043;
+            margin-left: 32px;
+            padding: 0 20px;
+            margin: 0;
+            margin: 6px 5px;
+        }
+        
+        #legend {
+            ul {
+                padding: 0 20px;
+                margin: 0;
+
+                li {
+                    line-height: 32px;
+                    list-style-type: none;
+
+                    & > div {
+                        border: 9px solid rgba(0, 0, 0, 0.54);
+                        border-radius: 3px;
+                        width: 0px;
+                        height: 0px;
+                        float: left;
+                        margin: 6px 5px;
+                    }
+                }
+            }
+        }
+
+        #links {
+            font-size: 15px;
+            position: absolute;
+            bottom: 0;
+
+            h3 {
+                font-size: 15px;
+                margin-bottom: 0;
+            }
+
+            ul {
+                margin-top: 0;
+            }
+        }
+    }
+
+
+
+
+    .right-side {
+        width: 85vw;
+        height: 100vh;
+        margin: 0;
+
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            margin-top: 1ex;
+
+            th {
+                color: #70757a;
+            }
+
+            td {
+                padding: 5px 5px 9px 5px;
+                border: 1px solid lightgray;
+                vertical-align: top;
+                min-width: 10vw;
+                max-width: 10vw;
+                height: 20%;
+
+
+                & > span {
+                    padding: 5px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-bottom: 5px;
+                    display: inline-block;
+                }
+
+
+                & > div {
+                    color: ghostwhite;
+                    border-radius: 3px;
+                    margin: 2px;
+                    padding: 2px 5px;
+                    width: calc(100% - 10px - 4px);
+
+                    & > div {
+                        text-overflow: ellipsis;
+                        overflow-wrap: normal;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
+                    & > :last-child {
+                        padding-left: 10px;
+                        font-size: small;
+                        padding-top: 0;
+                    }
+                }
+
+                .today {
+                    background-color: #1967d2;
+                    color: white;
+                }
+            }
+        }
+    }
+}
