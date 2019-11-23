@@ -1,0 +1,63 @@
+﻿body .right-side {
+    left: 15vw;
+    width: 85vw;
+    height: 100vh;
+    margin: 0;
+    position: fixed;
+
+    table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+        margin-top: 1ex;
+
+        th {
+            color: #70757a;
+        }
+
+        td {
+            padding: 5px 5px 9px 5px;
+            border: 1px solid lightgray;
+            vertical-align: top;
+            min-width: 10vw;
+            max-width: 10vw;
+            height: 20%;
+
+
+            & > span {
+                padding: 5px;
+                text-align: center;
+                border-radius: 100%;
+                margin-bottom: 5px;
+                display: inline-block;
+            }
+
+
+            & > div {
+                color: ghostwhite;
+                border-radius: 3px;
+                margin: 2px;
+                padding: 2px 5px;
+                width: calc(100% - 10px - 4px);
+
+                & > div {
+                    text-overflow: ellipsis;
+                    overflow-wrap: normal;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                & > :last-child {
+                    padding-left: 10px;
+                    font-size: small;
+                    padding-top: 0;
+                }
+            }
+
+            .today {
+                background-color: #1967d2;
+                color: white;
+            }
+        }
+    }
+}

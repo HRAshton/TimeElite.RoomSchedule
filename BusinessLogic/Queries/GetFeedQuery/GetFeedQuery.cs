@@ -9,7 +9,7 @@ namespace BusinessLogic.Queries.GetFeedQuery
     public class GetFeedQuery : QueryBase<object, IEnumerable<PostEntity>>
     {
         private readonly string RequestUri =
-            "https://api.vk.com/method/execute.GetPosts?v=5.103?access_token=" + SecretsManager.VkApiKey;
+            "https://api.vk.com/method/execute.GetPosts?v=5.103&lang=ru&access_token=" + SecretsManager.VkApiKey;
 
         private readonly HttpClient HttpClient;
 
@@ -30,7 +30,7 @@ namespace BusinessLogic.Queries.GetFeedQuery
         {
             var feedJson = HttpClient.GetStringAsync(RequestUri).Result;
             var feedModel = JsonConvert.DeserializeObject<FeedEntity>(feedJson);
-
+            
             var result = feedModel.response == null 
                 ? GetFailedResult("Feed: no data returned.") 
                 : GetSuccessfulResult(feedModel.response);

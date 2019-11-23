@@ -10,7 +10,7 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Ical.Net" Version="4.1.11" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.6.0" />
-    <PackageReference Include="TimeElite.RaspTpuIcalConverter" Version="1.1.0" />
+    <PackageReference Include="TimeElite.RaspTpuIcalConverter" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using Microsoft.Extensions.Caching.Memory
 @using WebUi.Data
 @using WebUi.Models.Calendar
 @using WebUi.Models.Feed
@@ -25,16 +24,33 @@
         </ul>
     </div>
 
-    @*<div id="feed">
-        @foreach (var t in Model.Posts)
+    <div id="feed">
+        <h2>Новости из Вестошки</h2>
+        @foreach (var post in Model.Posts.Where(x => x.Text.Any() || x.ImageUrl.Any()))
         {
             <div class="post">
-                @(t.Text.Length <= 297 ? t.Text : new string(t.Text.Take(297).ToArray()) + "…")
-                <img src="@t.ImageUrl" />
-                <span>@t.Likes</span>
+                @if (post.Text != string.Empty)
+                {
+                    <p>@post.Text</p>
+                }
+
+                @if (post.ImageUrl != "")
+                {
+                    <img src="@post.ImageUrl" alt=""/>
+                }
+
+                <p class="summary">
+                    @post.Likes &#128157;,
+                    @(post.Likes == 0
+                        ? "это грустно"
+                        : post.Likes > 1
+                            ? "последний"
+                            : string.Empty)
+                    от @post.LastLike
+                </p>
             </div>
         }
-    </div>*@
+    </div>
 
     <div id="links">
         <h3>Ссылки на календари iCal:</h3>
@@ -119,10 +135,10 @@
         IEnumerable<PostModel> posts = null;
 
         var task1 = Task.Run(() => { calendar = CalendarService.GetSchedule(); });
-        //var task2 = Task.Run(() => { posts = FeedService.GetPosts(); });
+        var task2 = Task.Run(() => { posts = FeedService.GetPosts(); });
 
         var task = Task
-            .WhenAll(task1)
+            .WhenAll(task1, task2)
             .ContinueWith(_ => new CalendarViewModel
             {
                 CalendarModel = calendar,
@@ -133,4 +149,5 @@
 
         return result;
     }
+
 }

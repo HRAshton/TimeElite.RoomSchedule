@@ -31,11 +31,6 @@ namespace BusinessLogic.Queries.GetFeedQuery.InternalModels
         public string LastLike { get; set; } = string.Empty;
 
         /// <summary>
-        ///     Ссылка на запись.
-        /// </summary>
-        public string Link { get; set; } = string.Empty;
-
-        /// <summary>
         ///     Ссылка на первое изображение.
         /// </summary>
         public string ImageUrl { get; set; } = string.Empty;
