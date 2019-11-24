@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUi", "WebUi\WebUi.csproj", "{57C2969A-7EA6-4EB7-AF88-B16387C4864A}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RaspiKiosk", "RaspiKiosk\RaspiKiosk.shproj", "{CAE3BB9F-288C-402E-96AE-ACC3C70CCB18}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RaspiKiosk\RaspiKiosk.projitems*{cae3bb9f-288c-402e-96ae-acc3c70ccb18}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

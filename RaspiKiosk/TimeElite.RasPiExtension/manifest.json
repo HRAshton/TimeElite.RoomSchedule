@@ -1,0 +1,16 @@
+{
+  "name": "TimeElite.RasPiExtension",
+  "version": "1.0",
+  "description": "",
+  "manifest_version": 2,
+  "permissions": [
+    "webNavigation",
+	"tabs",
+    "http://*/",
+    "https://*/"
+  ],
+  "background": {
+	  "scripts": ["background.js"],
+	  "persistent": false
+  }
+}
